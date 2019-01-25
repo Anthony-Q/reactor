@@ -1,46 +1,28 @@
-import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
+const path = require("path");
 
 module.exports = {
-  entry: ["@babel/polyfill", path.join(__dirname, "src", "index.js")],
+  entry: "./src/index.js",
   output: {
-    path: path.join(__dirname, "build"),
-    filename: "index.bundle.js"
+    filename: "bundle.js",
+    path: path.join(__dirname, "./build")
   },
-  mode: process.env.NODE_ENV || "development",
-  resolve: {
-    modules: [path.resolve(__dirname, "src"), "node_modules"]
-  },
+  mode: "development",
   devServer: {
-    contentBase: path.join(__dirname, "src")
+    historyApiFallback: true,
+    contentBase: "/",
+    hot: true
   },
   module: {
     rules: [
       {
-        // this is so that we can compile any React,
-        // ES6 and above into normal ES5 syntax
-        test: /\.(js|jsx)$/,
-        // we do not want anything from node_modules to be compiled
-        exclude: /node_modules/,
-        use: ["babel-loader"]
-      },
-      {
-        test: /\.(css|scss)$/,
-        use: [
-          "style-loader", // creates style nodes from JS strings
-          "css-loader", // translates CSS into CommonJS
-          "sass-loader" // compiles Sass to CSS, using Node Sass by default
-        ]
-      },
-      {
-        test: /\.(jpg|jpeg|png|gif|mp3|svg|ttf)$/,
-        loaders: ["file-loader"]
+        loader: "babel-loader",
+        test: /\.js[x]?/,
+        exclude: /(node_modules|dep)/,
+        query: {
+          presets: ["react", "env"],
+          plugins: [["styled-components"], ["babel-plugin-styled-components"]]
+        }
       }
     ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "index.html")
-    })
-  ]
+  }
 };
