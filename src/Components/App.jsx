@@ -1,4 +1,5 @@
 import React from "react";
+import "../index.scss";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -6,24 +7,20 @@ export default class App extends React.Component {
     this.state = {
       dimensions: 2,
       players: 1,
-      board: Array(20)
-        .fill(0)
-        .map(e => Array.fill("A"))
+      board: null,
+      gridLength: 10,
+      gridHeight: 10
     };
-    this.fillBoard = this.state.fillBoard.bind(this);
-  }
-
-  fillBoard() {
-    const newBoard = Array(this.state.dimensions)
-      .fill(0)
-      .map(e => Array(this.state.dimensions).fill("A"));
-
-    this.setState(prevState => {
-      return { board: newBoard };
-    });
   }
 
   render() {
-    return <div>{this.fillBoard}</div>;
+    return (
+      <div>
+        <GameBoard
+          gridHeight={this.state.gridHeight}
+          gridLength={this.state.gridLength}
+        />
+      </div>
+    );
   }
 }
