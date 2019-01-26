@@ -23,6 +23,14 @@ module.exports = {
         use: ["babel-loader"]
       },
       {
+        test: /\.(css|scss)$/,
+        use: [
+          "style-loader", // creates style nodes from JS strings
+          "css-loader", // translates CSS into CommonJS
+          "sass-loader" // compiles Sass to CSS, using Node Sass by default
+        ]
+      },
+      {
         loader: "babel-loader",
         test: /\.js[x]?/,
         exclude: /(node_modules|dep)/,

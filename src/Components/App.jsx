@@ -1,4 +1,5 @@
 import React from "react";
+import GameBoard from "./GameBoard.jsx";
 import "../index.scss";
 
 export default class App extends React.Component {
@@ -16,10 +17,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <GameBoard
-          gridHeight={this.state.gridHeight}
-          gridLength={this.state.gridLength}
-        />
+        <GameBoard />
       </div>
     );
   }
